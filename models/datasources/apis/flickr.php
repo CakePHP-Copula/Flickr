@@ -22,14 +22,15 @@ class Flickr extends ApisSource {
 	var $_schema = array();
 	
     protected $options = array(
-        'protocol'   		=> 'http',
-        'format'     		=> 'json',
-        'user_agent' 		=> 'cakephp flickr datasource',
-        'http_port'  		=> 80,
-        'timeout'    		=> 10,
-        'login'      		=> null,
-        'token'      		=> null,
-        'param_separator'	=> '&',
+        'protocol'   			=> 'http',
+        'format'     			=> 'json',
+        'user_agent' 			=> 'cakephp flickr datasource',
+        'http_port'  			=> 80,
+        'timeout'    			=> 10,
+        'login'      			=> null,
+        'token'      			=> null,
+        'param_separator'		=> '&',
+        'key_value_separator'	=> '=',
     );
     
     protected $url = ':protocol://api.flickr.com/services/rest/?api_key=:login&method=:path&format=:format';
@@ -43,16 +44,19 @@ class Flickr extends ApisSource {
 	 * @return void
 	 */
 	function read($model, $queryData = array()) {
-		if ($queryData['fields'] == 'sets') {
+		if ($queryData['fields'] == 'people' && !empty($queryData['conditions']['username'])) {
+			$url = 'flickr.people.findByUsername&' . $this->_buildParams(array(
+				'username',
+			), $queryData, true);
+		} elseif ($queryData['fields'] == 'sets') {
 			$url = 'flickr.photosets.getList&' . $this->_buildParams(array(
 				'user_id',
-			), $queryData);
+			), $queryData, true);
 		} elseif ($queryData['fields'] == 'photos' && !empty($queryData['conditions']['photoset_id'])) {
 			$url = 'flickr.photosets.getPhotos&' . $this->_buildParams(array(
 				'photoset_id',
-			), $queryData);
+			), $queryData, true);
 		}
-				
 		return $this->_request($url);
 	}
 }
