@@ -31,33 +31,23 @@ You can get an idea what's available to you by reading the [Codaset API Document
 Conditions:
 
 * username
-* project
+* find_email
+* user_id
+* photoset_id
 
 Fields: pass only one of these at a time as a string
 
-* General
-	* projects
-* User specific (username required)
-	* projects
-	* collaborations
-	* followers
-	* followings
-	* friends
-	* bookmarks
-* Project specific (username and project conditions required)
-	* wiki
-	* tickets
-	* milestones
-	* blog
+* people (requires username condition)
+* sets (requires user_id condition)
+* photos (requires photoset_id condition)
 		
 **Example:**
 <pre><code>
 $data = $this->Model->find('all', array(
 	'conditions' => array(
-		'username' => 'codaset', 
-		'project' => 'codaset'
+		'user_id' => $userId,
 	),
-	'fields' => 'blog',
+	'fields' => 'sets',
 ));
 </code></pre>
 		
@@ -67,30 +57,5 @@ Bold items are required
 ### Delete
 Bold items are required
 
-**Unfollow a user**
-
-Fields:
-
-* follow => username
-
 ### Create
 Bold items are required
-
-**Create Project**
-
-Fields:
-
-* **type** => project
-* **username** => The username of the project owner.
-* **title** => Title of the new project.
-* description => Description of the project.
-* state => The state of the project. Possible values are 'public' (default), 'semi-private' or 'private'.
-* fork => A publicly accessible URL of an external Git repository that will be cloned to create this project. Example: git://external-domain.com/repository.git
-
-**Follow a user**
-
-Fields:
-
-* **type** => follow
-* **follow** => username
-	

@@ -34,29 +34,78 @@ class Flickr extends ApisSource {
     );
     
     protected $url = ':protocol://api.flickr.com/services/rest/?api_key=:login&method=:path&format=:format';
+
+	function __construct() {
+		Configure::load('Flickr.flickr');
+		$this->map = Configure::read('Apis.Flickr');
+	}
+
 	
-	/**
-	 * Uses standard find conditions. Use find('all', $params). Since you cannot pull specific fields,
-	 * we will instead use 'fields' to specify what table to pull from.
-	 *
-	 * @param string $model 
-	 * @param string $queryData 
-	 * @return void
-	 */
+/**
+ * Uses standard find conditions. Use find('all', $params). Since you cannot pull specific fields,
+ * we will instead use 'fields' to specify what table to pull from.
+ *
+ * @param string $model The model being read.
+ * @param string $queryData An array of query data used to find the data you want
+ * @return mixed
+ * @access public
+ */
 	function read($model, $queryData = array()) {
-		if ($queryData['fields'] == 'people' && !empty($queryData['conditions']['username'])) {
-			$url = 'flickr.people.findByUsername&' . $this->_buildParams(array(
-				'username',
-			), $queryData, true);
-		} elseif ($queryData['fields'] == 'sets') {
-			$url = 'flickr.photosets.getList&' . $this->_buildParams(array(
-				'user_id',
-			), $queryData, true);
-		} elseif ($queryData['fields'] == 'photos' && !empty($queryData['conditions']['photoset_id'])) {
-			$url = 'flickr.photosets.getPhotos&' . $this->_buildParams(array(
-				'photoset_id',
-			), $queryData, true);
+		if (!empty($this->map['read'][$queryData['fields']])) {
+			$map = $this->map['read'][$queryData['fields']];
+			foreach ($map as $path => $conditions) {
+				if (array_intersect(array_keys($queryData), $conditions) == $conditions) {
+					$url = $path . '&' . $this->_buildParams($conditions, $queryData, true);
+					return $this->_request($url);
+				}
+			}
 		}
-		return $this->_request($url);
+		return false;
+	}
+	
+
+/**
+ * Used to create new records. The "C" CRUD.
+ *
+ * To-be-overridden in subclasses.
+ *
+ * @param Model $model The Model to be created.
+ * @param array $fields An Array of fields to be saved.
+ * @param array $values An Array of values to save.
+ * @return boolean success
+ * @access public
+ */
+	function create(&$model, $fields = null, $values = null) {
+		return false;
+	}
+
+/**
+ * Update a record(s) in the datasource.
+ *
+ * To-be-overridden in subclasses.
+ *
+ * @param Model $model Instance of the model class being updated
+ * @param array $fields Array of fields to be updated
+ * @param array $values Array of values to be update $fields to.
+ * @return boolean Success
+ * @access public
+ */
+	function update(&$model, $fields = null, $values = null) {
+		return false;
+	}
+
+/**
+ * Delete a record(s) in the datasource.
+ *
+ * To-be-overridden in subclasses.
+ *
+ * @param Model $model The model class having record(s) deleted
+ * @param mixed $id Primary key of the model
+ * @access public
+ */
+	function delete(&$model, $id = null) {
+		if ($id == null) {
+			$id = $model->id;
+		}
 	}
 }
