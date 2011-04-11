@@ -7,8 +7,11 @@
  *
  */
 $config['Apis']['Flickr']['read'] = array(
+	// field
 	'people' => array(
+		// api url
 		'flickr.people.getInfo' => array(
+			// required conditions
 			'user_id'
 		),
 		'flickr.people.findByUsername' => array(
