@@ -34,34 +34,6 @@ class Flickr extends ApisSource {
     );
     
     protected $url = ':protocol://api.flickr.com/services/rest/?api_key=:login&method=:path&format=:format';
-
-	function __construct() {
-		Configure::load('Flickr.flickr');
-		$this->map = Configure::read('Apis.Flickr');
-	}
-
-	
-/**
- * Uses standard find conditions. Use find('all', $params). Since you cannot pull specific fields,
- * we will instead use 'fields' to specify what table to pull from.
- *
- * @param string $model The model being read.
- * @param string $queryData An array of query data used to find the data you want
- * @return mixed
- * @access public
- */
-	function read($model, $queryData = array()) {
-		if (!empty($this->map['read'][$queryData['fields']])) {
-			$map = $this->map['read'][$queryData['fields']];
-			foreach ($map as $path => $conditions) {
-				if (array_intersect(array_keys($queryData), $conditions) == $conditions) {
-					$url = $path . '&' . $this->_buildParams($conditions, $queryData, true);
-					return $this->_request($url);
-				}
-			}
-		}
-		return false;
-	}
 	
 
 /**
