@@ -12,7 +12,9 @@ $config['Apis']['Flickr']['read'] = array(
 		// api url
 		'flickr.people.getInfo' => array(
 			// required conditions
-			'user_id'
+			'user_id',
+			// optional conditions the api call can take
+			'optional' => array(),
 		),
 		'flickr.people.findByUsername' => array(
 			'username',
