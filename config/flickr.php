@@ -6,6 +6,14 @@
  * https://github.com/ProLoser/CakePHP-Api-Datasources
  *
  */
+$config['Apis']['Flickr']['hosts'] = array(
+	'oauth' => 'flickr.com/services/auth',
+	'rest' => 'api.flickr.com/services/rest/',
+);
+$config['Apis']['Flickr']['oauth'] = array(
+	// http://www.flickr.com/services/api/auth.howto.web.html
+	'login' => '?api_key=:login&perms=:permissions&api_sig=:token',
+);
 $config['Apis']['Flickr']['read'] = array(
 	// field
 	'people' => array(
@@ -41,6 +49,9 @@ $config['Apis']['Flickr']['read'] = array(
 	'photos' => array(
 		'flickr.photosets.getPhotos' => array(
 			'photoset_id',
+		),
+		'flickr.photos.getNotInSet' => array(
+			
 		),
 	),
 	'comments' => array(
