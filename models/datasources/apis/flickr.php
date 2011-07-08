@@ -12,7 +12,7 @@ class Flickr extends ApisSource {
 	// TODO: Relocate to a dedicated schema file
 	var $_schema = array();
 	
-    protected $options = array(
+    public $options = array(
         'protocol'   			=> 'http',
         'format'     			=> 'json',
         'user_agent' 			=> 'CakePHP Flickr Datasource',

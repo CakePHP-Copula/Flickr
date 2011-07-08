@@ -7,12 +7,17 @@
  *
  */
 $config['Apis']['Flickr']['hosts'] = array(
-	'oauth' => 'flickr.com/services/auth',
-	'rest' => 'api.flickr.com/services/rest/',
+	'oauth' => 'www.flickr.com/services/oauth',
+	'rest' => 'api.flickr.com/services/rest',
 );
 $config['Apis']['Flickr']['oauth'] = array(
+	'scheme' => 'http',
 	// http://www.flickr.com/services/api/auth.howto.web.html
 	'login' => '?api_key=:login&perms=:permissions&api_sig=:token',
+	// http://www.flickr.com/services/api/auth.oauth.html
+	'request' => 'request_token',
+	'authorize' => 'authorize',
+	'access' => 'access_token',
 );
 $config['Apis']['Flickr']['read'] = array(
 	// field
