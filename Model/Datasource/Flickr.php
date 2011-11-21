@@ -7,6 +7,7 @@
  * @package default
  * @author Dean Sofer
  **/
+App::uses('ApisSource', 'Apis.Model/Datasource');
 class Flickr extends ApisSource {
 	
 	// TODO: Relocate to a dedicated schema file
