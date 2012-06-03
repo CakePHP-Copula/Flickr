@@ -38,6 +38,7 @@ $config['Apis']['Flickr']['read'] = array(
 		'flickr.photos.people.getList' => array(
 			'photo_id',
 		),
+		'flickr.test.login' => array(),
 	),
 	'sets' => array(
 		'flickr.photosets.getInfo' => array(
