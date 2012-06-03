@@ -11,6 +11,7 @@ $config['Apis']['Flickr']['hosts'] = array(
 	'rest' => 'api.flickr.com/services/rest',
 );
 $config['Apis']['Flickr']['oauth'] = array(
+	'version' => '1.0',
 	'scheme' => 'http',
 	// http://www.flickr.com/services/api/auth.howto.web.html
 	'login' => '?api_key=:login&perms=:permissions&api_sig=:token',
@@ -44,12 +45,14 @@ $config['Apis']['Flickr']['read'] = array(
 		'flickr.photosets.getInfo' => array(
 			'photoset_id',
 		),
-		'flickr.photosets.getList' => array(
-			'user_id',
-		),
 		'flickr.photosets.getContext' => array(
 			'photoset_id',
 			'photo_id',
+		),
+		'flickr.photosets.getList' => array(
+			'optional' => array(
+				'user_id',
+			),
 		),
 	),
 	'photos' => array(
@@ -57,7 +60,7 @@ $config['Apis']['Flickr']['read'] = array(
 			'photoset_id',
 		),
 		'flickr.photos.getNotInSet' => array(
-			
+
 		),
 	),
 	'comments' => array(
