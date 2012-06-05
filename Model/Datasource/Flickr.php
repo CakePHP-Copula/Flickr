@@ -44,7 +44,7 @@ class Flickr extends ApisSource {
         $sig = $this->config['password'];
         ksort($params);
         foreach ($params as $key => $value) {
-            $sig += $key + $value;
+            $sig .= $key . $value;
         }
         $sig = md5($sig);
         return $sig;
