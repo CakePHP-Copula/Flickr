@@ -2,22 +2,20 @@
 
 ## Installation
 
-1. Clone/download the plugin to `plugins/flickr`
-2. Clone/download the [apis plugin](https://github.com/ProLoser/CakePHP-Api-Datasources) to `plugins/apis`
+1. Clone/download the plugin to `Plugin/Flickr`
+2. Clone/download the [apis plugin](https://github.com/ProLoser/CakePHP-Api-Datasources) to `Plugins/Apis`
 3. Add your configuration to `database.php` and set it to the model
 
 ```
 :: database.php ::
-var $codaset = array(
-	'datasource' => 'Apis.Apis',
-	'driver' => 'Flickr.Flickr',
-	// These are only required for authenticated requests (write-access)
+var $flickr = array(
+	'datasource' => 'Flickr.Flickr',
 	'login' => '--Your API Key--',
 	'password' => '--Your API Secret--',
 );
 
 :: my_model.php ::
-var $useDbConfig = 'codaset';
+var $useDbConfig = 'flickr';
 ```
 
 ## Commands
@@ -50,12 +48,3 @@ $data = $this->Model->find('all', array(
 	'fields' => 'sets',
 ));
 ```
-		
-### Update
-Bold items are required
-
-### Delete
-Bold items are required
-
-### Create
-Bold items are required
