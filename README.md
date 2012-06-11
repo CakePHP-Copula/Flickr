@@ -1,5 +1,7 @@
 # Flickr API Plugin for CakePHP
 
+Refer to the [CakePHP Api Datasources project](https://github.com/ProLoser/CakePHP-Api-Datasources) for documentation
+
 ## Installation
 
 1. Clone/download the plugin to `Plugin/Flickr`
